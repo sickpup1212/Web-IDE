@@ -1,0 +1,10 @@
+.claude
+./backend/.env
+.prompt_plan.md.swp
+AI_AGENT_TODO_PROMPT.md
+AT_SETUP_INSTRUCTIONS.md
+STEP_8_TESTING_GUIDE.md
+TEST_RESULTS_STEP7.md
+codepen.html
+prompt_plan.md
+todo.md
