@@ -2,6 +2,14 @@
 
 Backend API server for the Web-Based IDE project, built with Node.js, Express, TypeScript, and PostgreSQL.
 
+<img width="1321" height="604" alt="webide1" src="https://github.com/user-attachments/assets/cb8e365e-8249-4e0c-949d-3b18f77aba47" />
+
+<img width="735" height="853" alt="webide2" src="https://github.com/user-attachments/assets/7da20aec-8518-462b-8919-3f82674612e9" />
+
+<img width="1520" height="864" alt="webide3" src="https://github.com/user-attachments/assets/ca07aec2-7284-41ea-ba4c-653661be8da7" />
+
+<img width="1105" height="822" alt="webide4" src="https://github.com/user-attachments/assets/2d84982f-808c-4643-b3a6-94af69e9ebca" />
+
 ## Features
 
 - RESTful API with Express
