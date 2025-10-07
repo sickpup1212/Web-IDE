@@ -1,0 +1,353 @@
+.editor {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+/* Header */
+.editor__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.editor__header-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.editor__header-right {
+  display: flex;
+  gap: 8px;
+}
+
+.editor__project-name {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+
+.editor__dirty-indicator {
+  color: #ff9800;
+  font-weight: bold;
+}
+
+/* Save status indicator */
+.editor__save-status {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.editor__save-status--saving {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.editor__save-status--saved {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.editor__save-status--unsaved {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Tabs */
+.editor__tabs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 0 24px;
+}
+
+.editor__tabs-left {
+  display: flex;
+}
+
+.editor__tabs-right {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.editor__tab {
+  padding: 12px 24px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.2s;
+}
+
+.editor__tab:hover {
+  color: #333;
+  background-color: #f9f9f9;
+}
+
+.editor__tab--active {
+  color: #4CAF50;
+  border-bottom-color: #4CAF50;
+}
+
+.editor__format-btn {
+  font-size: 13px;
+  padding: 6px 12px;
+}
+
+/* Editor Layout with Split View */
+.editor__layout {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.editor__layout--split .editor__content {
+  flex: 1;
+  min-width: 0; /* Allow flex shrinking */
+}
+
+.editor__layout--split .editor__preview {
+  flex: 1;
+  min-width: 0; /* Allow flex shrinking */
+}
+
+/* Editor Content */
+.editor__content {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.editor__pane {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  padding: 24px;
+  overflow: auto;
+}
+
+.editor__pane--active {
+  display: block;
+}
+
+/* Preview Pane */
+.editor__preview {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Toggle Preview Button */
+.editor__toggle-preview {
+  display: none;
+}
+
+/* Loading State */
+.editor--loading {
+  justify-content: center;
+  align-items: center;
+}
+
+.editor__loading-spinner {
+  font-size: 18px;
+  color: #666;
+}
+
+/* Error State */
+.editor--error {
+  justify-content: center;
+  align-items: center;
+}
+
+.editor__error {
+  text-align: center;
+  padding: 32px;
+  max-width: 500px;
+}
+
+.editor__error h2 {
+  color: #f44336;
+  margin-bottom: 16px;
+}
+
+.editor__error p {
+  color: #666;
+  margin-bottom: 24px;
+}
+
+/* Buttons */
+.button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button--primary {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.button--primary:hover:not(:disabled) {
+  background-color: #45a049;
+}
+
+.button--secondary {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.button--secondary:hover {
+  background-color: #e0e0e0;
+}
+
+/* Responsive Design */
+
+/* Tablet and below - stack vertically */
+@media (max-width: 1024px) {
+  .editor__layout--split {
+    flex-direction: column;
+  }
+
+  .editor__layout--split .editor__content {
+    flex: 1;
+    min-height: 400px;
+  }
+
+  .editor__layout--split .editor__preview {
+    flex: 1;
+    min-height: 300px;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .editor__toggle-preview {
+    display: inline-block;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .editor__header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .editor__header-right {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .editor__header-right button {
+    flex: 1;
+    min-width: 100px;
+  }
+
+  .editor__tabs {
+    padding: 0 12px;
+  }
+
+  .editor__tab {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .editor__pane {
+    padding: 12px;
+  }
+
+  /* On mobile, preview takes full width when shown */
+  .editor__layout--split {
+    flex-direction: column;
+  }
+
+  .editor__layout--split .editor__content {
+    min-height: 300px;
+  }
+
+  .editor__layout--split .editor__preview {
+    flex: 1;
+    min-height: 200px;
+  }
+
+  .editor__toggle-preview {
+    display: inline-block;
+    order: -1; /* Show toggle button first on mobile */
+  }
+}
+
+/* Dark mode support (optional) */
+@media (prefers-color-scheme: dark) {
+  .editor {
+    background-color: #1e1e1e;
+  }
+
+  .editor__header {
+    background-color: #252525;
+    border-bottom-color: #333;
+  }
+
+  .editor__project-name {
+    color: #e0e0e0;
+  }
+
+  .editor__tabs {
+    background-color: #252525;
+    border-bottom-color: #333;
+  }
+
+  .editor__tab {
+    color: #999;
+  }
+
+  .editor__tab:hover {
+    color: #e0e0e0;
+    background-color: #2a2a2a;
+  }
+
+  .button--secondary {
+    background-color: #333;
+    color: #e0e0e0;
+  }
+
+  .button--secondary:hover {
+    background-color: #3a3a3a;
+  }
+
+  .editor__error h2 {
+    color: #ff5252;
+  }
+
+  .editor__error p {
+    color: #999;
+  }
+}
