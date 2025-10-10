@@ -17,11 +17,21 @@ export interface ExportOptions {
  * @param content - The text content of the file.
  */
 export const createAndDownloadFile = (filename: string, content: string) => {
-  // Step 1.3: Create a Blob from the content
-  const blob = new Blob([content], { type: 'text/plain' });
+  // Determine MIME type based on file extension
+  let mimeType = 'text/plain';
+  if (filename.endsWith('.html')) {
+    mimeType = 'text/html';
+  } else if (filename.endsWith('.css')) {
+    mimeType = 'text/css';
+  } else if (filename.endsWith('.js')) {
+    mimeType = 'application/javascript';
+  }
+
+  // Create a Blob from the content
+  const blob = new Blob([content], { type: mimeType });
   const url = URL.createObjectURL(blob);
 
-  // Step 1.4: Use the anchor download trick
+  // Use the anchor download trick
   const a = document.createElement('a');
   a.href = url;
   a.download = filename;

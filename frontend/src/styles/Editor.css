@@ -160,7 +160,7 @@
 
 /* Toggle Preview Button */
 .editor__toggle-preview {
-  display: none;
+  display: inline-block;
 }
 
 /* Loading State */
@@ -248,10 +248,6 @@
     min-height: 300px;
     border-top: 1px solid #e0e0e0;
   }
-
-  .editor__toggle-preview {
-    display: inline-block;
-  }
 }
 
 /* Mobile */
@@ -300,7 +296,6 @@
   }
 
   .editor__toggle-preview {
-    display: inline-block;
     order: -1; /* Show toggle button first on mobile */
   }
 }

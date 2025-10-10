@@ -1,7 +1,8 @@
-import * as prettier from 'prettier';
-import parserHtml from 'prettier/parser-html';
-import parserBabel from 'prettier/parser-babel';
-import parserPostcss from 'prettier/parser-postcss';
+import * as prettier from 'prettier/standalone';
+import parserHtml from 'prettier/plugins/html';
+import parserBabel from 'prettier/plugins/babel';
+import parserPostcss from 'prettier/plugins/postcss';
+import parserEstree from 'prettier/plugins/estree';
 
 // Define a type for the supported languages for clarity
 type SupportedLanguage = 'html' | 'css' | 'javascript';
@@ -25,23 +26,22 @@ export const formatCode = async (
 
   try {
     // Determine the correct parser and plugins based on the language
-    const options = {
-      parser: '',
-      plugins: [] as any[],
-    };
+    let parser: string;
+    let plugins: any[];
 
     switch (language) {
       case 'html':
-        options.parser = 'html';
-        options.plugins = [parserHtml];
+        parser = 'html';
+        plugins = [parserHtml];
         break;
       case 'css':
-        options.parser = 'css';
-        options.plugins = [parserPostcss];
+        parser = 'css';
+        plugins = [parserPostcss];
         break;
       case 'javascript':
-        options.parser = 'babel';
-        options.plugins = [parserBabel];
+        parser = 'babel';
+        // JavaScript/Babel needs both babel and estree plugins
+        plugins = [parserBabel, parserEstree];
         break;
       default:
         // If the language is not supported, return the original code
@@ -51,7 +51,8 @@ export const formatCode = async (
 
     // Await the asynchronous format function and return the result
     const formattedCode = await prettier.format(code, {
-      ...options,
+      parser,
+      plugins,
       printWidth: 80,
       tabWidth: 2,
       useTabs: false,

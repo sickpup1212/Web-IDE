@@ -70,7 +70,6 @@ const Editor: React.FC = () => {
   const [showShortcutsModal, setShowShortcutsModal] = useState(false);
   const [showChatModal, setShowChatModal] = useState(false);
   const [saveAsMode, setSaveAsMode] = useState<'save' | 'saveAs'>('save');
-  const autoSaveTimerRef = useRef<NodeJS.Timeout | null>(null);
   const saveStatusTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Editor settings
@@ -191,47 +190,12 @@ const Editor: React.FC = () => {
     };
   }, [state.isDirty]);
 
-  /**
-   * Auto-save functionality
-   * Automatically saves project every 30 seconds if there are unsaved changes
-   */
-  useEffect(() => {
-    // Only enable auto-save for existing projects with unsaved changes
-    if (state.projectId && state.isDirty && !state.isSaving) {
-      // Clear any existing timer
-      if (autoSaveTimerRef.current) {
-        clearTimeout(autoSaveTimerRef.current);
-      }
-
-      // Set new timer for 30 seconds
-      autoSaveTimerRef.current = setTimeout(() => {
-        console.log('Auto-saving project...');
-        saveProject(
-          state.projectId!,
-          state.projectName,
-          state.htmlCode,
-          state.cssCode,
-          state.jsCode
-        );
-      }, 30000); // 30 seconds
-    }
-
-    // Cleanup timer on unmount or when dependencies change
-    return () => {
-      if (autoSaveTimerRef.current) {
-        clearTimeout(autoSaveTimerRef.current);
-      }
-    };
-  }, [state.projectId, state.isDirty, state.isSaving, state.htmlCode, state.cssCode, state.jsCode]);
 
   /**
    * Cleanup timers on unmount
    */
   useEffect(() => {
     return () => {
-      if (autoSaveTimerRef.current) {
-        clearTimeout(autoSaveTimerRef.current);
-      }
       if (saveStatusTimerRef.current) {
         clearTimeout(saveStatusTimerRef.current);
       }

@@ -68,9 +68,23 @@ const Dropdown: React.FC<DropdownProps> = ({ trigger, items, align = 'right' }) 
 
   return (
     <div className="dropdown" ref={dropdownRef}>
-      <div className="dropdown-trigger" onClick={toggleDropdown}>
-        {trigger}
-      </div>
+      {React.isValidElement(trigger)
+        ? React.cloneElement(trigger, {
+            // Assert props as 'any' to allow spreading
+            ...(trigger.props as any),
+            onClick: (e: React.MouseEvent) => {
+              // Assert props as 'any' to access onClick
+              if ((trigger.props as any)?.onClick) {
+                (trigger.props as any).onClick(e);
+              }
+              toggleDropdown();
+            },
+            'aria-haspopup': 'true',
+            'aria-expanded': isOpen,
+          })
+        : trigger}
+
+
 
       {isOpen && (
         <div className={`dropdown-menu dropdown-menu-${align}`}>

@@ -116,7 +116,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onRename, onD
         <h3 className="project-card-title">{project.name}</h3>
         <Dropdown
           trigger={
-            <div className="project-card-menu-icon">
+            <div className="project-card-menu-icon" data-testid={`project-menu-${project.id}`}>
               <svg
                 width="20"
                 height="20"
